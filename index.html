@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aybüke Ünal | Yönetim Bilişim Sistemleri & Backend Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6', // Violet
+                            600: '#7c3aed',
+                            900: '#4c1d95',
+                        },
+                        cyber: {
+                            dark: '#0b0f19',
+                            card: '#161b26',
+                            accent: '#10b981', // Emerald
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.4);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .terminal-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .terminal-scroll::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        /* Custom subtle grid background */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-slate-100 font-sans selection:bg-brand-500 selection:text-white antialiased overflow-x-hidden grid-bg">
+
+    <!-- Glowing Blobs -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/3 right-1/4 w-80 h-80 bg-cyber-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-1/3 w-96 h-96 bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-dark/80 border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyber-accent flex items-center justify-center font-bold text-white text-lg tracking-wider glow-effect transform group-hover:rotate-6 transition-all duration-300">
+                    AÜ
+                </div>
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-brand-500 bg-clip-text text-transparent">
+                    Aybüke Ünal
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#profil" class="text-slate-300 hover:text-brand-500 font-medium text-sm transition-colors">Profil</a>
+                <a href="#egitim" class="text-slate-300 hover:text-brand-500 font-medium text-sm transition-colors">Eğitim & Deneyim</a>
+                <a href="#yetenekler" class="text-slate-300 hover:text-brand-500 font-medium text-sm transition-colors">Yetenekler</a>
+                <a href="#projeler" class="text-slate-300 hover:text-brand-500 font-medium text-sm transition-colors">Projeler</a>
+                <a href="#terminal" class="text-slate-300 hover:text-cyber-accent font-medium text-sm transition-colors flex items-center gap-1.5"><i data-lucide="terminal" class="w-4 h-4 text-cyber-accent"></i> API Terminal</a>
+                <a href="#iletisim" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold text-sm hover:from-brand-500 hover:to-brand-600 shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all transform hover:-translate-y-0.5">İletişime Geç</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors" aria-label="Menüyü Aç">
+                <i data-lucide="menu" id="menu-icon" class="w-6 h-6 text-slate-300"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 bg-cyber-dark/95 border-b border-slate-800 space-y-4">
+            <a href="#profil" class="block text-slate-300 hover:text-brand-500 py-2 text-base font-medium">Profil</a>
+            <a href="#egitim" class="block text-slate-300 hover:text-brand-500 py-2 text-base font-medium">Eğitim & Deneyim</a>
+            <a href="#yetenekler" class="block text-slate-300 hover:text-brand-500 py-2 text-base font-medium">Yetenekler</a>
+            <a href="#projeler" class="block text-slate-300 hover:text-brand-500 py-2 text-base font-medium">Projeler</a>
+            <a href="#terminal" class="block text-cyber-accent hover:text-brand-500 py-2 text-base font-medium flex items-center gap-2"><i data-lucide="terminal" class="w-4 h-4"></i> API Terminal</a>
+            <a href="#iletisim" class="block w-full text-center px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm">İletişime Geç</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[calc(100vh-80px)] flex items-center py-12 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-cyber-accent animate-pulse"></span>
+                        Backend & Veritabanı Geliştirici
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            Merhaba, Ben <br class="hidden sm:inline">
+                            <span class="bg-gradient-to-r from-brand-500 via-violet-400 to-cyber-accent bg-clip-text text-transparent glow-text">
+                                Aybüke Ünal
+                            </span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            Yönetim Bilişim Sistemleri öğrencisiyim. Backend mimarileri, SQL veritabanı sistemleri ve ölçeklenebilir yazılım çözümleri geliştirmeye tutkuyla odaklanıyorum.
+                        </p>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
+                        <a href="#projeler" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-white font-bold hover:shadow-lg hover:shadow-brand-500/30 transition-all text-center flex items-center justify-center gap-2 group">
+                            Projelerimi İncele
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#iletisim" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-slate-600 hover:bg-slate-800 text-slate-200 hover:text-white font-bold transition-all text-center flex items-center justify-center gap-2">
+                            <i data-lucide="mail" class="w-5 h-5 text-brand-500"></i>
+                            İletişim Kur
+                        </a>
+                    </div>
+
+                    <!-- Minimal Tech Badges -->
+                    <div class="pt-6 border-t border-slate-800/60 flex flex-wrap justify-center lg:justify-start items-center gap-6 text-slate-500 text-sm">
+                        <span class="flex items-center gap-1.5"><i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i> C# & .NET</span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="database" class="w-4 h-4 text-cyber-accent"></i> SQL Server / T-SQL</span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="code" class="w-4 h-4 text-violet-400"></i> Algorithms & DS</span>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic (Abstract Code Console) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-[420px] aspect-square rounded-3xl bg-gradient-to-tr from-brand-600/20 to-cyber-accent/20 p-px">
+                        <!-- Card Core -->
+                        <div class="w-full h-full bg-cyber-card/90 rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-slate-800 relative">
+                            <!-- Visual design element: Tech grid or dynamic shapes -->
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                <div class="flex space-x-2">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500/80"></span>
+                                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500/80"></span>
+                                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500/80"></span>
+                                </div>
+                                <span class="text-xs text-slate-500 font-mono">aybuke_system.cs</span>
+                            </div>
+                            
+                            <!-- Middle abstract system metrics -->
+                            <div class="my-auto py-8 space-y-6">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-mono text-slate-400">
+                                        <span>Backend Thread Status</span>
+                                        <span class="text-cyber-accent">Active (100%)</span>
+                                    </div>
+                                    <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                                        <div class="h-full bg-cyber-accent rounded-full animate-pulse" style="width: 100%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-mono text-slate-400">
+                                        <span>SQL Connection Pool</span>
+                                        <span class="text-brand-500">Established</span>
+                                    </div>
+                                    <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                                        <div class="h-full bg-brand-500 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="rounded-xl bg-slate-950 p-4 border border-slate-800/80 font-mono text-[11px] text-slate-400 space-y-1">
+                                    <p class="text-slate-500">// Developer Profile Init</p>
+                                    <p><span class="text-brand-500">var</span> dev = <span class="text-amber-500">new</span> <span class="text-cyan-400">Developer</span>(<span class="text-emerald-400">"Aybüke Ünal"</span>);</p>
+                                    <p>dev.Interests = [<span class="text-emerald-400">"Backend"</span>, <span class="text-emerald-400">"Database"</span>];</p>
+                                    <p>dev.CurrentStatus = <span class="text-emerald-400">"Seeking Opportunities"</span>;</p>
+                                    <p>dev.Run();</p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between text-xs text-slate-500 border-t border-slate-800/60 pt-4">
+                                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500"></i> Antalya</span>
+                                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyber-accent"></i> Verified Candidate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TERMINAL SECTION -->
+    <section id="terminal" class="py-16 md:py-24 bg-slate-950/40 relative border-y border-slate-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-3 mb-10">
+                <h2 class="text-3xl font-bold tracking-tight">İnteraktif API Terminali</h2>
+                <p class="text-slate-400 max-w-lg mx-auto text-sm">
+                    Aybüke'nin sistemini komut satırından sorgulayın! Alttaki butonlara tıklayabilir veya terminale doğrudan komutlar yazabilirsiniz.
+                </p>
+            </div>
+
+            <!-- Terminal Component -->
+            <div class="rounded-2xl bg-cyber-dark border border-slate-800 shadow-2xl overflow-hidden glow-effect">
+                <!-- Terminal Header -->
+                <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    </div>
+                    <div class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5 text-cyber-accent"></i> aybuke_api_cli.sh
+                    </div>
+                    <div class="w-12"></div> <!-- Spacer -->
+                </div>
+
+                <!-- Shortcut Buttons -->
+                <div class="bg-slate-900/60 px-4 py-2.5 border-b border-slate-800/80 flex flex-wrap gap-2 items-center">
+                    <span class="text-xs font-mono text-slate-500 uppercase mr-1">Hızlı Komutlar:</span>
+                    <button onclick="runCommand('profil')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-brand-500/20 hover:text-brand-500 border border-slate-700 hover:border-brand-500/30 text-[11px] font-mono text-slate-300 transition-all">profil</button>
+                    <button onclick="runCommand('skills')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-brand-500/20 hover:text-brand-500 border border-slate-700 hover:border-brand-500/30 text-[11px] font-mono text-slate-300 transition-all">skills</button>
+                    <button onclick="runCommand('projects')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-brand-500/20 hover:text-brand-500 border border-slate-700 hover:border-brand-500/30 text-[11px] font-mono text-slate-300 transition-all">projects</button>
+                    <button onclick="runCommand('education')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-brand-500/20 hover:text-brand-500 border border-slate-700 hover:border-brand-500/30 text-[11px] font-mono text-slate-300 transition-all">education</button>
+                    <button onclick="runCommand('experience')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-brand-500/20 hover:text-brand-500 border border-slate-700 hover:border-brand-500/30 text-[11px] font-mono text-slate-300 transition-all">experience</button>
+                    <button onclick="runCommand('clear')" class="px-2.5 py-1 rounded bg-rose-950/20 hover:bg-rose-950/50 hover:text-rose-400 border border-rose-900/30 text-[11px] font-mono text-slate-400 transition-all ml-auto">clear</button>
+                </div>
+
+                <!-- Terminal Body -->
+                <div id="terminal-body" class="p-5 h-80 overflow-y-auto font-mono text-xs sm:text-sm text-slate-300 space-y-3 terminal-scroll">
+                    <p class="text-slate-500">// Aybuke API CLI v1.0.0 başlatıldı.</p>
+                    <p class="text-slate-500">// Komut listesi için <span class="text-cyber-accent font-semibold">help</span> yazabilirsiniz.</p>
+                    <div id="terminal-history"></div>
+                    
+                    <!-- Command Prompt Line -->
+                    <form id="terminal-form" onsubmit="handleTerminalSubmit(event)" class="flex items-center gap-1.5 pt-2">
+                        <span class="text-cyber-accent font-bold">guest@aybuke-api:~$</span>
+                        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none ring-0 focus:ring-0 text-white w-full p-0 font-mono" placeholder="komut yazın..." autocomplete="off" autofocus>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="profil" class="py-20 md:py-28 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Graphic / Bio Intro Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-cyber-card rounded-3xl p-8 border border-slate-800 relative overflow-hidden group hover:border-brand-500/30 transition-all duration-300">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/5 rounded-full blur-xl"></div>
+                        
+                        <div class="space-y-6">
+                            <!-- Styled dynamic avatar placeholder -->
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-cyber-accent flex items-center justify-center font-bold text-white text-2xl shadow-lg glow-effect">
+                                AU
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-bold text-slate-100">Aybüke Ünal</h3>
+                                <p class="text-brand-500 font-medium">Yönetim Bilişim Sistemleri Öğrencisi</p>
+                            </div>
+                            
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Bilgisayar Programcılığı ön lisans derecemi tamamladıktan sonra, teknolojinin yönetimsel ve stratejik boyutuna olan ilgim sebebiyle eğitimimi Yönetim Bilişim Sistemleri (YBS) ile taçlandırma kararı aldım.
+                            </p>
+
+                            <div class="pt-6 border-t border-slate-800/80 space-y-3.5">
+                                <div class="flex items-center gap-3 text-sm text-slate-300">
+                                    <i data-lucide="mail" class="w-4 h-4 text-brand-500"></i>
+                                    <span>aybukeunal18@gmail.com</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm text-slate-300">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-cyber-accent"></i>
+                                    <span>Antalya, Türkiye</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm text-slate-300">
+                                    <i data-lucide="globe" class="w-4 h-4 text-violet-400"></i>
+                                    <span>Türkçe (Anadil) / İngilizce</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Bio Description -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-brand-500 font-semibold text-xs tracking-wider uppercase">Ben Kimim?</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Sürekli Gelişime İnanan Bir Geliştirici Adayı</h2>
+                    </div>
+
+                    <div class="space-y-6 text-slate-400 leading-relaxed text-base">
+                        <p>
+                            Yazılım dünyasına ilk adımı <strong class="text-slate-200">Bilgisayar Programcılığı</strong> ön lisans eğitimimle attım. Bu süreçte yazılım dillerinin temel mantığını, algoritmaları ve veritabanı yönetim sistemlerini derinlemesine kavradım. 
+                        </p>
+                        <p>
+                            Eğitimimi <strong class="text-slate-200">Yönetim Bilişim Sistemleri</strong> lisans programına taşıyarak teknik bilgimi iş analitiği, proje yönetimi ve organizasyonel planlama yetkinlikleriyle birleştirmeyi amaçlıyorum. Bu sayede sadece kod yazan değil, aynı zamanda iş gereksinimlerine en uygun sistem mimarilerini kurgulayan bir uzman olma yolundayım.
+                        </p>
+                        <p>
+                            Akademik projelerim, staj deneyimim ve aktif iş hayatında edindiğim tecrübeler bana <span class="text-brand-500">problem çözme</span>, <span class="text-cyber-accent">analitik düşünme</span> ve <span class="text-violet-400">ekip çalışması</span> gibi konularda kritik kazanımlar sağladı. Backend mimarileri, SQL sistemleri ve güncel yazılım teknolojilerine duyduğum heyecanla her gün yeni bir şeyler öğrenmeye gayret ediyorum.
+                        </p>
+                    </div>
+
+                    <!-- Highlighted soft skill items -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between">
+                            <i data-lucide="users-2" class="w-6 h-6 text-brand-500 mb-2"></i>
+                            <span class="text-sm font-semibold text-slate-200">Ekip Çalışması</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between">
+                            <i data-lucide="brain" class="w-6 h-6 text-cyber-accent mb-2"></i>
+                            <span class="text-sm font-semibold text-slate-200">Analitik Düşünme</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between">
+                            <i data-lucide="lightbulb" class="w-6 h-6 text-violet-400 mb-2"></i>
+                            <span class="text-sm font-semibold text-slate-200">Problem Çözme</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION & EXPERIENCE TIMELINE -->
+    <section id="egitim" class="py-20 md:py-28 bg-slate-900/30 border-y border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Education Column -->
+                <div class="space-y-10">
+                    <div class="flex items-center space-x-3.5 mb-6">
+                        <div class="p-3 bg-brand-500/10 rounded-xl border border-brand-500/20">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 text-brand-500"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Eğitim Yolculuğum</h2>
+                    </div>
+
+                    <div class="relative pl-6 border-l-2 border-slate-800 space-y-10">
+                        <!-- Education Item 1 -->
+                        <div class="relative group">
+                            <!-- Bullet -->
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-cyber-dark border-2 border-brand-500 group-hover:bg-brand-500 transition-colors duration-300"></span>
+                            
+                            <div class="space-y-2">
+                                <span class="text-xs font-mono text-brand-500 font-semibold bg-brand-500/10 px-2 py-0.5 rounded">Eylül 2025 - Devam Ediyor</span>
+                                <h3 class="text-lg font-bold text-slate-100 group-hover:text-brand-500 transition-colors">Yönetim Bilişim Sistemleri (Lisans)</h3>
+                                <p class="text-sm font-medium text-slate-400">Antalya Belek Üniversitesi</p>
+                                <p class="text-xs text-slate-500">İş analitiği, proje yönetimi, yönetim süreçleri ve ileri düzey bilişim sistemleri tasarımı.</p>
+                            </div>
+                        </div>
+
+                        <!-- Education Item 2 -->
+                        <div class="relative group">
+                            <!-- Bullet -->
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-cyber-dark border-2 border-slate-800 group-hover:border-slate-400 transition-colors duration-300"></span>
+                            
+                            <div class="space-y-2">
+                                <span class="text-xs font-mono text-slate-500 font-semibold bg-slate-800 px-2 py-0.5 rounded">Eylül 2021 - Haziran 2023</span>
+                                <h3 class="text-lg font-bold text-slate-100 group-hover:text-slate-300 transition-colors">Bilgisayar Programcılığı (Ön Lisans)</h3>
+                                <p class="text-sm font-medium text-slate-400">Antalya Bilim Üniversitesi</p>
+                                <p class="text-xs text-slate-500">Yazılım mühendisliği temelleri, nesne yönelimli programlama, veritabanı yönetimi ve web geliştirme.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Column -->
+                <div class="space-y-10">
+                    <div class="flex items-center space-x-3.5 mb-6">
+                        <div class="p-3 bg-cyber-accent/10 rounded-xl border border-cyber-accent/20">
+                            <i data-lucide="briefcase" class="w-6 h-6 text-cyber-accent"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Mesleki Deneyim</h2>
+                    </div>
+
+                    <div class="relative pl-6 border-l-2 border-slate-800 space-y-10">
+                        <!-- Experience Item 1 -->
+                        <div class="relative group">
+                            <!-- Bullet -->
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-cyber-dark border-2 border-cyber-accent group-hover:bg-cyber-accent transition-colors duration-300"></span>
+                            
+                            <div class="space-y-2.5">
+                                <span class="text-xs font-mono text-cyber-accent font-semibold bg-cyber-accent/10 px-2 py-0.5 rounded">Mayıs 2024 - Mayıs 2026</span>
+                                <h3 class="text-lg font-bold text-slate-100 group-hover:text-cyber-accent transition-colors">Şirket Çalışanı</h3>
+                                <p class="text-sm font-medium text-slate-400">SEAL, Antalya</p>
+                                <ul class="text-xs text-slate-500 space-y-1 list-disc pl-4">
+                                    <li>Şirketin günlük operasyonel faaliyetlerine destek sağladım.</li>
+                                    <li>İş süreçlerinin takibi, koordinasyonu ve planlama süreçlerini yürüttüm.</li>
+                                    <li>Müşteri ilişkileri ve kurum içi ekip iletişimlerinde aktif rol aldım.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Experience Item 2 -->
+                        <div class="relative group">
+                            <!-- Bullet -->
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-cyber-dark border-2 border-slate-800 group-hover:border-slate-400 transition-colors duration-300"></span>
+                            
+                            <div class="space-y-2.5">
+                                <span class="text-xs font-mono text-slate-500 font-semibold bg-slate-800 px-2 py-0.5 rounded">Temmuz 2022 - Ağustos 2022</span>
+                                <h3 class="text-lg font-bold text-slate-100 group-hover:text-slate-300 transition-colors">Stajyer Backend Developer</h3>
+                                <p class="text-sm font-medium text-slate-400">AKINSOFT Antalya Bölge Bayii</p>
+                                <ul class="text-xs text-slate-500 space-y-1 list-disc pl-4">
+                                    <li>Kurumsal yazılım geliştirme süreçlerini yakından gözlemleme şansı buldum.</li>
+                                    <li>Kullanıcı desteği, teknik altyapı iyileştirmeleri ve uygulama entegrasyonlarına katkı sağladım.</li>
+                                    <li>İş uygulamalarının veri akışı ve temel teknik aşamalarında görev aldım.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="yetenekler" class="py-20 md:py-28 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-brand-500 font-semibold text-xs tracking-wider uppercase">Cephanelik</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Teknik Yetenekler & Uzmanlıklar</h2>
+                <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">
+                    Geliştirme süreçlerinde kullandığım modern diller, veritabanı yönetim sistemleri ve temel mühendislik prensipleri.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Skill Card 1: Languages -->
+                <div class="bg-cyber-card rounded-2xl p-6 border border-slate-800 space-y-6 hover:border-brand-500/20 hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                            <i data-lucide="code-2" class="w-5 h-5 text-brand-500"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-100">Programlama Dilleri</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">C# Programlama</span>
+                                <span class="text-brand-500 font-semibold">İleri Seviye</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-500 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">T-SQL & SQL Sorgulama</span>
+                                <span class="text-brand-500 font-semibold">İleri Seviye</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-500 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">İngilizce</span>
+                                <span class="text-slate-500">Mesleki Okuma/Yazma</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-slate-700 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2: DB & Core Architecture -->
+                <div class="bg-cyber-card rounded-2xl p-6 border border-slate-800 space-y-6 hover:border-cyber-accent/20 hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-cyber-accent/10 flex items-center justify-center">
+                            <i data-lucide="database" class="w-5 h-5 text-cyber-accent"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-100">Veritabanı & Sistem</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">SQL Server (MSSQL)</span>
+                                <span class="text-cyber-accent font-semibold">Yetkin</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyber-accent rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">İlişkisel DB Mimarisi</span>
+                                <span class="text-cyber-accent font-semibold">Yetkin</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyber-accent rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">Algoritma ve Veri Yapıları</span>
+                                <span class="text-cyber-accent font-semibold">Yetkin</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyber-accent rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3: Frameworks & Libraries -->
+                <div class="bg-cyber-card rounded-2xl p-6 border border-slate-800 space-y-6 hover:border-violet-400/20 hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-violet-400/10 flex items-center justify-center">
+                            <i data-lucide="layers" class="w-5 h-5 text-violet-400"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-100">Kütüphaneler & Araçlar</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">OpenCV & EmguCV</span>
+                                <span class="text-violet-400 font-semibold">Yüz Algılama</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-violet-400 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">ADO.NET & Entity Framework</span>
+                                <span class="text-violet-400 font-semibold">Veri Entegrasyonu</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-violet-400 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-slate-300">Git / GitHub & Versioning</span>
+                                <span class="text-violet-400">Temel Seviye</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                                <div class="h-full bg-slate-700 rounded-full" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projeler" class="py-20 md:py-28 bg-slate-900/20 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-brand-500 font-semibold text-xs tracking-wider uppercase">Üretimlerim</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Projelerim & Çalışmalarım</h2>
+                <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">
+                    Geliştirmiş olduğum çözümler ve akademik bitirme projelerimin detayları.
+                </p>
+            </div>
+
+            <!-- Single Featured Large Project Card -->
+            <div class="bg-cyber-card rounded-3xl border border-slate-800 overflow-hidden hover:border-brand-500/30 transition-all duration-300 group">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    
+                    <!-- Tech Showcase Area (Simulated Interface) -->
+                    <div class="lg:col-span-5 bg-slate-950/80 p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 text-[10px] font-mono tracking-wider uppercase">Live Face Detection</span>
+                                <span class="text-xs text-slate-500 font-mono">camera_stream_01.bin</span>
+                            </div>
+                            
+                            <!-- Dummy Face Recognition Scan Frame -->
+                            <div class="relative aspect-video w-full rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden flex items-center justify-center">
+                                <!-- Decorative Scanning Lines -->
+                                <div class="absolute inset-x-0 top-0 h-0.5 bg-brand-500 opacity-60 animate-bounce"></div>
+                                
+                                <!-- Simulating OpenCV face box -->
+                                <div class="absolute w-24 h-24 border-2 border-cyber-accent rounded-lg flex items-center justify-center">
+                                    <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-white -mt-0.5 -ml-0.5"></div>
+                                    <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white -mt-0.5 -mr-0.5"></div>
+                                    <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-white -mb-0.5 -ml-0.5"></div>
+                                    <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-white -mb-0.5 -mr-0.5"></div>
+                                    
+                                    <span class="text-[9px] font-mono text-cyber-accent bg-slate-950/80 px-1 py-0.5 rounded -mt-24">ID: 10423 (98.4%)</span>
+                                </div>
+                                <i data-lucide="user" class="w-12 h-12 text-slate-700"></i>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 space-y-3">
+                            <h4 class="text-xs font-mono text-slate-500 uppercase">Veritabanı Şeması Entegrasyonu</h4>
+                            <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
+                                <p><span class="text-brand-500">SELECT</span> <span class="text-emerald-400">StudentId, AttendanceStatus</span></p>
+                                <p><span class="text-brand-500">FROM</span> AttendanceRecords</p>
+                                <p><span class="text-brand-500">WHERE</span> Date = <span class="text-amber-500">GETDATE()</span>;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description Area -->
+                    <div class="lg:col-span-7 p-8 md:p-10 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-500 text-xs font-bold font-mono">Bitirme Projesi</span>
+                                <span class="text-xs font-mono text-slate-500">2023 - Antalya Bilim Üniversitesi</span>
+                            </div>
+
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-100 group-hover:text-brand-500 transition-colors">
+                                Yüz Tespiti ile Öğrenci Yoklama Sistemi
+                            </h3>
+
+                            <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                                Geleneksel yoklama yöntemlerini dijitalleştirerek zaman kayıplarını sıfıra indiren bir masaüstü yazılımı. Sınıf kamerası üzerinden alınan canlı görüntü akışında yüz tespiti ve öğrenci tanıma işlemleri gerçekleştirilerek, SQL Server veritabanı entegrasyonuyla yoklama verileri otomatik olarak sisteme işlenir.
+                            </p>
+
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="check" class="w-5 h-5 text-cyber-accent shrink-0 mt-0.5"></i>
+                                    <span>C# ve .NET Framework kullanılarak Windows Form ortamında tasarlandı.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="check" class="w-5 h-5 text-cyber-accent shrink-0 mt-0.5"></i>
+                                    <span>Görüntü işleme kütüphanesi olarak <strong>OpenCV</strong> tabanlı <strong>EmguCV</strong> kullanıldı.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="check" class="w-5 h-5 text-cyber-accent shrink-0 mt-0.5"></i>
+                                    <span>Öğrenci verileri, ders programları ve yoklama çıktıları <strong>SQL Server</strong> üzerinde ilişkisel olarak tutuldu.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Tech Tags -->
+                        <div class="pt-8 border-t border-slate-800/80 mt-8 flex flex-wrap gap-2.5">
+                            <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">C#</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">SQL Server</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">OpenCV / EmguCV</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">ADO.NET</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="iletisim" class="py-20 md:py-28 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                
+                <!-- Contact Meta Info -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
+                    <div class="space-y-4">
+                        <span class="text-brand-500 font-semibold text-xs tracking-wider uppercase">Bana Ulaşın</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Kariyer Serüvenime Ortak Olun</h2>
+                        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                            Yönetim Bilişim Sistemleri ve Backend geliştirici pozisyonlarında staj, iş teklifleri veya projeleriniz için benimle dilediğiniz an iletişime geçebilirsiniz.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details Interactive Grid -->
+                    <div class="space-y-5">
+                        <!-- Card: Email -->
+                        <div class="p-4 rounded-2xl bg-cyber-card border border-slate-800 flex items-center justify-between group hover:border-brand-500/30 transition-all">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                                    <i data-lucide="mail" class="w-5 h-5 text-brand-500"></i>
+                                </div>
+                                <div class="space-y-0.5">
+                                    <span class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">E-Posta</span>
+                                    <p id="email-text" class="text-sm font-semibold text-slate-200">aybukeunal18@gmail.com</p>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('aybukeunal18@gmail.com', 'copy-email-btn')" id="copy-email-btn" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-brand-500 transition-colors text-slate-400" title="Kopyala">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card: Telefon -->
+                        <div class="p-4 rounded-2xl bg-cyber-card border border-slate-800 flex items-center justify-between group hover:border-brand-500/30 transition-all">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                                    <i data-lucide="phone" class="w-5 h-5 text-brand-500"></i>
+                                </div>
+                                <div class="space-y-0.5">
+                                    <span class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">Telefon</span>
+                                    <p id="phone-text" class="text-sm font-semibold text-slate-200">0532 220 78 68</p>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('05322207868', 'copy-phone-btn')" id="copy-phone-btn" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-brand-500 transition-colors text-slate-400" title="Kopyala">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card: LinkedIn -->
+                        <a href="https://linkedin.com/in/aybukeunal" target="_blank" class="p-4 rounded-2xl bg-cyber-card border border-slate-800 flex items-center justify-between group hover:border-brand-500/30 transition-all">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-11 h-11 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-brand-500"></i>
+                                </div>
+                                <div class="space-y-0.5">
+                                    <span class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">Profesyonel Ağ</span>
+                                    <p class="text-sm font-semibold text-slate-200">linkedin.com/in/aybukeunal</p>
+                                </div>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 group-hover:text-brand-500">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Custom Alert Message placeholder -->
+                    <div id="clip-toast" class="hidden px-4 py-2.5 rounded-xl bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent text-xs font-mono flex items-center gap-2 max-w-xs">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                        <span>Panoya başarıyla kopyalandı!</span>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="lg:col-span-7">
+                    <div class="bg-cyber-card rounded-3xl p-8 md:p-10 border border-slate-800 relative">
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="name" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Adınız Soyadınız</label>
+                                    <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-200 focus:outline-none focus:border-brand-500 transition-colors" placeholder="Ahmet Yılmaz">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="email" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">E-Posta Adresiniz</label>
+                                    <input type="email" id="email-input" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-200 focus:outline-none focus:border-brand-500 transition-colors" placeholder="ahmet@example.com">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="subject" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Konu</label>
+                                <input type="text" id="subject" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-200 focus:outline-none focus:border-brand-500 transition-colors" placeholder="Staj / İş Teklifi Hakkında">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="message" class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Mesajınız</label>
+                                <textarea id="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-200 focus:outline-none focus:border-brand-500 transition-colors resize-none" placeholder="Buraya yazın..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-bold tracking-wide shadow-lg shadow-brand-500/10 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                                Mesaj Gönder
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+        <div class="bg-cyber-card border border-slate-800 rounded-3xl p-8 max-w-sm w-full text-center space-y-6 shadow-2xl relative">
+            <div class="w-16 h-16 rounded-full bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center mx-auto text-cyber-accent">
+                <i data-lucide="mail-check" class="w-8 h-8"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 class="text-xl font-bold text-slate-100">Mesajınız İletildi!</h3>
+                <p class="text-sm text-slate-400">Teşekkür ederim, en kısa sürede e-posta adresiniz üzerinden geri dönüş sağlayacağım.</p>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-colors">
+                Kapat
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p class="text-xs sm:text-sm text-slate-500 font-mono">
+                &copy; 2026 Aybüke Ünal. Tüm hakları saklıdır.
+            </p>
+            
+            <!-- Quick links / technology stack badge -->
+            <div class="flex items-center space-x-4 text-xs font-mono text-slate-500">
+                <span>Tailwind CSS</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+                <span>Lucide Icons</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+                <span>Interactive DOM JavaScript</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Terminal & Form Scripts -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Responsive Navbar Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
+            menuIcon.setAttribute('data-lucide', isHidden ? 'menu' : 'x');
+            lucide.createIcons();
+        });
+
+        // Close menu on navigation link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Clipboard Copy Action
+        function copyToClipboard(text, btnId) {
+            // Fallback for secure context issues
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Toast Alert Feedback
+            const toast = document.getElementById('clip-toast');
+            toast.classList.remove('hidden');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Contact Form Processing
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            // Show Success Modal directly for dynamic, slick presentation
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('hidden');
+            // Reset fields
+            document.getElementById('contact-form').reset();
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+        }
+
+        // Terminal Simulator System Logic
+        const terminalHistory = document.getElementById('terminal-history');
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalBody = document.getElementById('terminal-body');
+
+        const CV_DATA = {
+            profil: {
+                ad_soyad: "Aybüke Ünal",
+                meslek: "Yönetim Bilişim Sistemleri (YBS) Öğrencisi / Backend Developer Adayı",
+                hedef: "Backend geliştirme, veritabanı sistemleri ve ölçeklenebilir yazılım mimarilerinde uzmanlaşmak."
+            },
+            skills: [
+                "C# Programlama (.NET)",
+                "SQL Server (MSSQL), T-SQL",
+                "Algoritmalar ve Veri Yapıları",
+                "OpenCV & EmguCV (Yüz Algılama)",
+                "İngilizce (Mesleki Seviye)"
+            ],
+            projects: {
+                proje_adi: "Yüz Tespiti ile Öğrenci Yoklama Sistemi",
+                yil: "2023",
+                tip: "Antalya Bilim Üniversitesi Bitirme Projesi",
+                teknolojiler: ["C#", "SQL Server", "OpenCV", "EmguCV"],
+                ozet: "Kamera yayını üzerinden eşzamanlı yüz tespiti ve öğrenci tanıma süreçlerini otomatikleştirip, ilişkisel SQL veritabanına kaydeden yoklama sistemi."
+            },
+            education: [
+                {
+                    okul: "Antalya Belek Üniversitesi",
+                    bolum: "Yönetim Bilişim Sistemleri (Lisans)",
+                    tarih: "Eyl 2025 - Devam Ediyor"
+                },
+                {
+                    okul: "Antalya Bilim Üniversitesi",
+                    bolum: "Bilgisayar Programcılığı (Ön Lisans)",
+                    tarih: "Eyl 2021 - Haz 2023"
+                }
+            ],
+            experience: [
+                {
+                    firma: "SEAL, Antalya",
+                    pozisyon: "Şirket Çalışanı",
+                    tarih: "Mayıs 2024 - Mayıs 2026",
+                    gorevler: "Günlük operasyonel süreç desteği, iş akışı takibi ve ekip içi/dışı koordinasyon."
+                },
+                {
+                    firma: "AKINSOFT Antalya Bölge Bayii",
+                    pozisyon: "Stajyer Backend Developer",
+                    tarih: "Temmuz 2022 - Ağustos 2022",
+                    gorevler: "Kurumsal yazılım desteği, veri akışı yönetimi, SQL sorguları ve teknik asistanlık."
+                }
+            ]
+        };
+
+        const commandManual = {
+            help: "Mevcut komutlar: profil, skills, projects, education, experience, clear, help",
+            profil: "Aybüke'nin genel profil bilgilerini JSON olarak döndürür.",
+            skills: "Teknik yetenek havuzunu listeler.",
+            projects: "Geliştirilen ana proje ayrıntılarını görüntüler.",
+            education: "Akademik geçmiş bilgisini sunar.",
+            experience: "Sektörel ve operasyonel iş deneyimlerini listeler.",
+            clear: "Terminal ekranını temizler."
+        };
+
+        function appendToTerminal(text, type = 'normal') {
+            const p = document.createElement('p');
+            if (type === 'command') {
+                p.innerHTML = `<span class="text-cyber-accent font-bold">guest@aybuke-api:~$</span> ${text}`;
+            } else if (type === 'error') {
+                p.innerHTML = `<span class="text-rose-500">[ERROR]</span> ${text}`;
+            } else if (type === 'json') {
+                p.innerHTML = `<pre class="text-emerald-400 whitespace-pre-wrap">${JSON.stringify(text, null, 2)}</pre>`;
+            } else if (type === 'help') {
+                let html = `<span class="text-violet-400 font-semibold">// CLI Yardım Kılavuzu:</span><br>`;
+                for (const [cmd, desc] of Object.entries(commandManual)) {
+                    html += `<span class="text-cyber-accent font-mono font-bold">${cmd.padEnd(12)}</span> - ${desc}<br>`;
+                }
+                p.innerHTML = html;
+            } else {
+                p.innerHTML = text;
+            }
+            terminalHistory.appendChild(p);
+            // Auto scroll down
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function handleTerminalSubmit(event) {
+            event.preventDefault();
+            const cmd = terminalInput.value.trim().toLowerCase();
+            terminalInput.value = '';
+            
+            if (!cmd) return;
+            
+            runCommand(cmd);
+        }
+
+        function runCommand(cmd) {
+            appendToTerminal(cmd, 'command');
+            
+            switch (cmd) {
+                case 'help':
+                    appendToTerminal('', 'help');
+                    break;
+                case 'profil':
+                    appendToTerminal(CV_DATA.profil, 'json');
+                    break;
+                case 'skills':
+                    appendToTerminal(CV_DATA.skills, 'json');
+                    break;
+                case 'projects':
+                    appendToTerminal(CV_DATA.projects, 'json');
+                    break;
+                case 'education':
+                    appendToTerminal(CV_DATA.education, 'json');
+                    break;
+                case 'experience':
+                    appendToTerminal(CV_DATA.experience, 'json');
+                    break;
+                case 'clear':
+                    terminalHistory.innerHTML = '';
+                    break;
+                default:
+                    appendToTerminal(`Bilinmeyen komut: '${cmd}'. Desteklenen komut listesi için 'help' yazın.`, 'error');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
